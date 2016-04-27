@@ -23,7 +23,7 @@ int main(int, char**)
 
    for (const auto& res : v)
    {
-       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] ( •̀ω•́ )σ " << std::get<1>(res) << " ԅ(◉෴◉ԅ) in " << std::get<2>(res).count() << " microseconds" << std::endl;
+       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] » " << std::get<1>(res) << L" » " << std::get<2>(res).count() << L" µs" << std::endl;
    }
    return 0;
 }

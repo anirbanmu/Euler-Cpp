@@ -31,7 +31,7 @@ with open(problem_header, 'r') as h:
     text += '   // Display all results and their runtimes\n\n'
     text += '   for (const auto& res : v)\n'
     text += '   {\n'
-    text += '       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] ( •̀ω•́ )σ " << std::get<1>(res) << " ԅ(◉෴◉ԅ) in " << std::get<2>(res).count() << " microseconds" << std::endl;\n'
+    text += '       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] » " << std::get<1>(res) << L" » " << std::get<2>(res).count() << L" µs" << std::endl;\n'
     text += '   }\n'
 
 text += '   return 0;\n'

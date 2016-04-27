@@ -11,7 +11,7 @@ using std::chrono::duration_cast;
 using std::chrono::microseconds;
 using std::chrono::high_resolution_clock;
 
-template<typename T, unsigned problem_number> class ProblemBase
+template<unsigned problem_number> class ProblemBase
 {
     const unsigned promblem_number_;
     public:
@@ -28,7 +28,9 @@ template<typename T, unsigned problem_number> class ProblemBase
             return std::make_tuple(promblem_number_, result, duration_cast<microseconds>(after - before));
         }
 
-        virtual wstring execute_core() = 0;
+        wstring execute_core();
 };
+
+#define DEFINE_EXECUTE_CORE_ONLY(NUMBER) template<> wstring ProblemBase< NUMBER >::execute_core()
 
 #endif

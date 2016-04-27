@@ -1,4 +1,5 @@
-#Just creates a meta header files that includes all others in given dir arg1 and header is generated at arg2
+# coding: utf-8
+# Just creates a meta header files that includes all others in given dir arg1 and header is generated at arg2
 
 import glob, os, sys
 
@@ -12,4 +13,4 @@ for f in glob.glob(os.path.join(header_loc, '*.h')):
 text = text + '\n#endif'
 
 with open(megaheader_loc, 'w') as mega:
-    mega.write(text.encode('utf-8'))
+    mega.write(text)

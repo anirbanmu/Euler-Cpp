@@ -13,9 +13,9 @@ using std::chrono::high_resolution_clock;
 
 template<unsigned problem_number> class ProblemBase
 {
-    const unsigned promblem_number_;
+    const unsigned problem_number_;
     public:
-        ProblemBase() : promblem_number_(problem_number)
+        ProblemBase() : problem_number_(problem_number)
         {
         }
 
@@ -25,12 +25,12 @@ template<unsigned problem_number> class ProblemBase
             const auto before = high_resolution_clock::now();
             const auto result = execute_core();
             const auto after = high_resolution_clock::now();
-            return std::make_tuple(promblem_number_, result, duration_cast<microseconds>(after - before));
+            return std::make_tuple(problem_number_, result, duration_cast<microseconds>(after - before));
         }
 
-        wstring execute_core();
+        virtual wstring execute_core() = 0;
 };
 
-#define DEFINE_EXECUTE_CORE_ONLY(NUMBER) template<> wstring ProblemBase< NUMBER >::execute_core()
+#define DEFINE_EXECUTE_CORE_ONLY(NUMBER) template<> using ProblemNUMBER = ProblemBase< NUMBER >; template<> wstring ProblemBase<NUMBER>::execute_core()
 
 #endif

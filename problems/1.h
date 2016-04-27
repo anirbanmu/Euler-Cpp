@@ -3,10 +3,21 @@
 
 #include "../problem_base.h"
 
-DEFINE_EXECUTE_CORE_ONLY(1)
+// Original prompt: Find the sum of all the multiples of 3 or 5 below 1000.
+
+class Problem1 : public ProblemBase<1>
 {
-    std::cout << "sdgsdfgdfg";
-    return L"k";
-}
+    public:
+        wstring execute_core()
+        {
+            int y = 0;
+            for (int i = 0; i < 409878; ++i)
+            {
+                y = i * i;
+            }
+            std::cout << y << std::endl;
+            return L"UNSOLVED1";
+        }
+};
 
 #endif

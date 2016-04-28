@@ -1,13 +1,9 @@
 CXX := clang++
-CXXFLAGS := -O2 -Wall -std=c++14
+CXXFLAGS := -O3 -Wall -std=c++14
 
 # Link
-euler: problems\*.o euler.o
-    $(CXX) $(CXXFLAGS) $(input) -o $(output)
-
-# Compilation
-problems\%.o: problems\%.cpp problems\%.h
-    $(CXX) $(CXXFLAGS) -c $(input) -o $(output)
+euler: euler.o problems/*.o
+    $(CXX) $(CXXFLAGS) $(inputs) -o $(output)
 
 euler.o: euler.cpp
     $(CXX) $(CXXFLAGS) -c $(input) -o $(output)

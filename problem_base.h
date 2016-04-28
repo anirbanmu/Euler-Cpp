@@ -31,6 +31,4 @@ template<unsigned problem_number> class ProblemBase
         virtual wstring execute_core() = 0;
 };
 
-#define DEFINE_EXECUTE_CORE_ONLY(NUMBER) template<> using ProblemNUMBER = ProblemBase< NUMBER >; template<> wstring ProblemBase<NUMBER>::execute_core()
-
 #endif

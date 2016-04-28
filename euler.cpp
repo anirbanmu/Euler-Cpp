@@ -1,12 +1,18 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
 
 #include "problem_headers.h"
 
 int main(int, char**)
 {
    std::vector<tuple<unsigned, wstring, nanoseconds>> v;
+   {
+       const auto res = Problem3().execute();
+       v.emplace_back(res);
+   }
+
    {
        const auto res = Problem2().execute();
        v.emplace_back(res);
@@ -23,7 +29,7 @@ int main(int, char**)
 
    for (const auto& res : v)
    {
-       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] »	" << std::get<1>(res) << L" » " << std::get<2>(res).count() << L" ns" << std::endl;
+       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] » " << std::setw(7) << std::get<1>(res) << L" » " << std::setw(7) << std::get<2>(res).count() << L" ns" << std::endl;
    }
    return 0;
 }

@@ -8,7 +8,17 @@ class Problem2 : public ProblemBase<2>
     public:
         wstring execute_core()
         {
-            return L"UNSOLVED2";
+            unsigned acc = 0;
+            unsigned l0 = 1, l1 = 2;
+            while (l1 < 4000000)
+            {
+                acc += l1 % 2 == 0 ? l1 : 0;
+
+                const unsigned sum = l0 + l1;
+                l0 = l1;
+                l1 = sum;
+            }
+            return std::to_wstring(acc);
         }
 };
 

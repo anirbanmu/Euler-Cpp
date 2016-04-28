@@ -11,7 +11,7 @@ text += '\n#include "problem_headers.h"\n\n'
 
 text += 'int main(int, char**)\n'
 text += '{\n'
-text += '   std::vector<tuple<unsigned, wstring, microseconds>> v;\n'
+text += '   std::vector<tuple<unsigned, wstring, nanoseconds>> v;\n'
 
 problem_header = sys.argv[1]
 with open(problem_header, 'r') as h:
@@ -31,7 +31,7 @@ with open(problem_header, 'r') as h:
     text += '   // Display all results and their runtimes\n\n'
     text += '   for (const auto& res : v)\n'
     text += '   {\n'
-    text += '       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] » " << std::get<1>(res) << L" » " << std::get<2>(res).count() << L" µs" << std::endl;\n'
+    text += '       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] » " << std::get<1>(res) << L" » " << std::get<2>(res).count() << L" ns" << std::endl;\n'
     text += '   }\n'
 
 text += '   return 0;\n'

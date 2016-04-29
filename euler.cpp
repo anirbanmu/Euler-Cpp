@@ -8,21 +8,10 @@
 int main(int, char**)
 {
    std::vector<tuple<unsigned, wstring, nanoseconds>> v;
-   {
-       const auto res = Problem3().execute();
-       v.emplace_back(res);
-   }
-
-   {
-       const auto res = Problem2().execute();
-       v.emplace_back(res);
-   }
-
-   {
-       const auto res = Problem1().execute();
-       v.emplace_back(res);
-   }
-
+   v.emplace_back(Problem1().execute());
+   v.emplace_back(Problem2().execute());
+   v.emplace_back(Problem3().execute());
+   v.emplace_back(Problem4().execute());
    std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return std::get<0>(a) < std::get<0>(b); });
 
    // Display all results and their runtimes

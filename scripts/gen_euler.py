@@ -3,7 +3,7 @@
 
 import os, sys
 
-text = '#include <vector>\n'
+text =  '#include <vector>\n'
 text += '#include <iostream>\n'
 text += '#include <algorithm>\n'
 text += '#include <iomanip>\n'
@@ -19,13 +19,8 @@ with open(problem_header, 'r') as h:
     for line in h:
         line = line.strip()
         if line.startswith('#include "') and line.endswith('.h"'):
-            text += '   {\n'
-
             problem_num = line.split('/')[-1].split('.')[0]
-
-            text += '       const auto res = Problem' + problem_num + '().execute();\n'
-            text += '       v.emplace_back(res);\n'
-            text += '   }\n\n'
+            text += '   v.emplace_back(Problem' + problem_num + '().execute());\n'
 
     text += '   std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return std::get<0>(a) < std::get<0>(b); });\n\n'
 

@@ -5,13 +5,10 @@
 
 // Original prompt:
 
-class Problem4 : public ProblemBase<4>
+class Solver4 : public ProblemBase<4>
 {
     public:
-        string execute_core()
-        {
-            return "";
-        }
+        string execute_core();
 };
 
 #endif

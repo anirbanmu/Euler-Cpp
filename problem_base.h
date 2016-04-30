@@ -6,6 +6,7 @@
 #include <chrono>
 
 using std::tuple;
+using std::make_tuple;
 using std::string;
 using std::chrono::duration_cast;
 using std::chrono::nanoseconds;
@@ -25,7 +26,7 @@ template<unsigned problem_number> class ProblemBase
             const auto before = high_resolution_clock::now();
             const auto result = execute_core();
             const auto after = high_resolution_clock::now();
-            return std::make_tuple(problem_number_, result, duration_cast<nanoseconds>(after - before));
+            return make_tuple(problem_number_, result, duration_cast<nanoseconds>(after - before));
         }
 
         virtual string execute_core() = 0;

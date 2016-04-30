@@ -5,47 +5,6 @@
 
 using namespace std;
 
-struct num_props
-{
-    vector<unsigned char> digits;
-    unsigned long high_mask;
-};
-
-num_props get_digits(unsigned long n)
-{
-    num_props prop;
-
-    auto& digits = prop.digits;
-    unsigned long mask;
-    for (mask = 10; n > 0; mask = mask * 10)
-    {
-        const unsigned long place_value = n % mask;
-        digits.push_back(place_value / (mask / 10));
-        n -= place_value;
-    }
-
-    // Place mask back at highest place found
-    mask = mask / 10 / 10;
-
-    prop.high_mask = mask;
-    return prop;
-}
-
-unsigned long reverse(unsigned long n)
-{
-    const auto prop = get_digits(n);
-
-    const auto& digits = prop.digits;
-    auto mask = prop.high_mask;
-
-    unsigned long reversed = 0;
-    for (unsigned i = 0; i < digits.size(); ++i, mask = mask / 10)
-    {
-        reversed += digits[i] * mask;
-    }
-    return reversed;
-}
-
 unsigned long pow(unsigned long b, unsigned long p)
 {
     auto r = 1;
@@ -58,28 +17,53 @@ unsigned long pow(unsigned long b, unsigned long p)
 
 bool is_palindrome(unsigned long n)
 {
-    return n == reverse(n);
+    const auto s = to_string(n);
+    const size_t length = s.length();
+    for (size_t i = 0; i < length / 2; ++i)
+    {
+        if (s[i] != s[length - i - 1]) return false;
+    }
+    return true;
 }
 
+// Traverses bottom half of multiplication table diagonal by diagonal such that a higher product
+// than the current cannot be ever seen later. This means the very first palindrome we find is the
+// answer.
 unsigned long highest_palindrome(unsigned digits)
 {
     const unsigned long limit = pow(10, digits);
 
-    unsigned long highest = 0;
-    for (unsigned long i = 0; i < limit; ++i)
+    unsigned long x = limit - 1, y = limit - 1, last_diag_x = limit - 1, last_diag_y = limit - 1;
+    bool from_main_diagonal = true;
+
+    while(x != 1 || y != 1)
     {
-        // Everything under is already done by outer loop.
-        for (unsigned long j = i; j < limit; ++j)
+        const auto product = x * y;
+        if (is_palindrome(product)) return product;
+
+        // Move up to smaller diagonal
+        if (x - 1 == 0 || y + 1 == limit)
         {
-            const auto product = i * j;
-            if (product > highest && is_palindrome(product))
+            if (from_main_diagonal)
             {
-                highest = max(highest, product);
+                x = last_diag_x - 1;
+                y = last_diag_y;
+                from_main_diagonal = false;
             }
+            else
+            {
+                x = last_diag_x = last_diag_x - 1;
+                y = last_diag_y = last_diag_y - 1;
+                from_main_diagonal = true;
+            }
+            continue;
         }
+
+        x -= 1;
+        y += 1;
     }
 
-    return highest;
+    return 0;
 }
 
 string Solver4::execute_core()

@@ -6,7 +6,8 @@
 #include <chrono>
 
 using std::tuple;
-using std::wstring;
+using std::make_tuple;
+using std::string;
 using std::chrono::duration_cast;
 using std::chrono::nanoseconds;
 using std::chrono::high_resolution_clock;
@@ -20,15 +21,15 @@ template<unsigned problem_number> class ProblemBase
         }
 
         // Euler project problem number, result as a string, duration taken for calculation
-        tuple<unsigned, wstring, nanoseconds> execute()
+        tuple<unsigned, string, nanoseconds> execute()
         {
             const auto before = high_resolution_clock::now();
             const auto result = execute_core();
             const auto after = high_resolution_clock::now();
-            return std::make_tuple(problem_number_, result, duration_cast<nanoseconds>(after - before));
+            return make_tuple(problem_number_, result, duration_cast<nanoseconds>(after - before));
         }
 
-        virtual wstring execute_core() = 0;
+        virtual string execute_core() = 0;
 };
 
 #endif

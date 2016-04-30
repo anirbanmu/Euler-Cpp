@@ -13,9 +13,9 @@ long greatest_prime_factor(long n);
 class Problem3 : public ProblemBase<3>
 {
     public:
-        wstring execute_core()
+        string execute_core()
         {
-            return std::to_wstring(greatest_prime_factor(600851475143));
+            return std::to_string(greatest_prime_factor(600851475143));
         }
 };
 

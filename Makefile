@@ -1,5 +1,5 @@
 CXX := clang++
-CXXFLAGS := -O3 -Wall -std=c++14
+CXXFLAGS := -O2 -Wall -Werror -std=c++14
 
 # Link
 euler: euler.o problems/*.o
@@ -10,7 +10,7 @@ euler.o: euler.cpp
 
 # Euler runner
 euler.cpp: scripts/gen_euler.py problem_headers.h
-	python3 scripts/gen_euler.py problem_headers.h euler.cpp
+	python3 scripts/gen_euler.py problems/ euler.cpp
 
 # All headers
 problem_headers.h: scripts/gen_mega_header.py problems/*.h

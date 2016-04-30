@@ -6,7 +6,7 @@
 class Problem2 : public ProblemBase<2>
 {
     public:
-        wstring execute_core()
+        string execute_core()
         {
             unsigned acc = 0;
             unsigned l0 = 1, l1 = 2;
@@ -18,7 +18,7 @@ class Problem2 : public ProblemBase<2>
                 l0 = l1;
                 l1 = sum;
             }
-            return std::to_wstring(acc);
+            return std::to_string(acc);
         }
 };
 

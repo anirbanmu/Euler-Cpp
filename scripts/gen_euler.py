@@ -9,16 +9,18 @@ header_cpp = ('#include <vector>\n'
               '#include <iomanip>\n'
               '#include "problem_headers.h"\n\n'
 
+              'using namespace std;'
+
               'int main(int, char**)\n'
               '{\n'
-              '   std::vector<tuple<unsigned, wstring, nanoseconds>> v;\n')
+              '   vector<tuple<unsigned, string, nanoseconds>> v;\n')
 
-footer_cpp = ('   std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return std::get<0>(a) < std::get<0>(b); });\n\n'
+footer_cpp = ('   sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return get<0>(a) < get<0>(b); });\n\n'
 
               '   // Display all results and their runtimes\n\n'
               '   for (const auto& res : v)\n'
               '   {\n'
-              '       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] » " << std::setw(7) << std::get<1>(res) << L" » " << std::setw(7) << std::get<2>(res).count() << L" ns" << std::endl;\n'
+              '       cout << "[ Problem " << get<0>(res) << " ] » " << setw(7) << get<1>(res) << " » " << setw(7) << get<2>(res).count() << " ns" << endl;\n'
               '   }\n'
 
               '   return 0;\n'

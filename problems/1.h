@@ -22,9 +22,9 @@ template <bool skip> unsigned accumulate(unsigned incr, unsigned limit, unsigned
 class Problem1 : public ProblemBase<1>
 {
     public:
-        wstring execute_core()
+        string execute_core()
         {
-            return std::to_wstring(accumulate<false>(3, 1000) + accumulate<true>(5, 1000, 3 * 5));
+            return std::to_string(accumulate<false>(3, 1000) + accumulate<true>(5, 1000, 3 * 5));
         }
 };
 

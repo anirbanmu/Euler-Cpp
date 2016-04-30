@@ -8,9 +8,9 @@
 class Problem4 : public ProblemBase<4>
 {
     public:
-        wstring execute_core()
+        string execute_core()
         {
-            return L"";
+            return "";
         }
 };
 

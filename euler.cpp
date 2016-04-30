@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 #include <iomanip>
-
 #include "problem_headers.h"
 
 int main(int, char**)

@@ -1,38 +1,44 @@
 # coding: utf-8
-# arg1 -> mega duper header. arg2 -> final euler runner cpp
+# arg1 -> location of class headers. arg2 -> final euler runner cpp
 
-import os, sys
+import os, sys, re, glob
 
-text =  '#include <vector>\n'
-text += '#include <iostream>\n'
-text += '#include <algorithm>\n'
-text += '#include <iomanip>\n'
+header_cpp = ('#include <vector>\n'
+              '#include <iostream>\n'
+              '#include <algorithm>\n'
+              '#include <iomanip>\n'
+              '#include "problem_headers.h"\n\n'
 
-text += '\n#include "problem_headers.h"\n\n'
+              'int main(int, char**)\n'
+              '{\n'
+              '   std::vector<tuple<unsigned, wstring, nanoseconds>> v;\n')
 
-text += 'int main(int, char**)\n'
-text += '{\n'
-text += '   std::vector<tuple<unsigned, wstring, nanoseconds>> v;\n'
+footer_cpp = ('   std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return std::get<0>(a) < std::get<0>(b); });\n\n'
 
-problem_header = sys.argv[1]
-with open(problem_header, 'r') as h:
-    for line in h:
-        line = line.strip()
-        if line.startswith('#include "') and line.endswith('.h"'):
-            problem_num = line.split('/')[-1].split('.')[0]
-            text += '   v.emplace_back(Problem' + problem_num + '().execute());\n'
+              '   // Display all results and their runtimes\n\n'
+              '   for (const auto& res : v)\n'
+              '   {\n'
+              '       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] » " << std::setw(7) << std::get<1>(res) << L" » " << std::setw(7) << std::get<2>(res).count() << L" ns" << std::endl;\n'
+              '   }\n'
 
-    text += '   std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return std::get<0>(a) < std::get<0>(b); });\n\n'
+              '   return 0;\n'
+              '}')
 
-    text += '   // Display all results and their runtimes\n\n'
-    text += '   for (const auto& res : v)\n'
-    text += '   {\n'
-    text += '       std::wcout << L"[ Problem " << std::get<0>(res) << L" ] » " << std::setw(7) << std::get<1>(res) << L" » " << std::setw(7) << std::get<2>(res).count() << L" ns" << std::endl;\n'
-    text += '   }\n'
+def get_solver_classes(header):
+    solver_re = re.compile('class\s+(\w+)\s+:\s+public\s+ProblemBase<\d+>')
+    with open(header, 'r') as h:
+        return [match.group(1) for match in solver_re.finditer(h.read())]
+    return []
 
-text += '   return 0;\n'
-text += '}'
+def aggregate_solver_classes(header_dir):
+    classes_in_each = [get_solver_classes(f) for f in glob.glob(os.path.join(header_dir, '*.h'))]
+    return [c for classes in classes_in_each for c in classes]
+
+def get_solver_cpp(solver_class):
+    return '   v.emplace_back(' + solver_class + '().execute());\n'
+
+solvers_cpp = ''.join([get_solver_cpp(c) for c in sorted(aggregate_solver_classes(sys.argv[1]))])
 
 euler = sys.argv[2]
 with open(euler, 'w') as f:
-    f.write(text)
+    f.write(header_cpp + solvers_cpp + footer_cpp)

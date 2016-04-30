@@ -10,7 +10,7 @@ euler.o: euler.cpp
 
 # Euler runner
 euler.cpp: scripts/gen_euler.py problem_headers.h
-	python3 scripts/gen_euler.py problem_headers.h euler.cpp
+	python3 scripts/gen_euler.py problems/ euler.cpp
 
 # All headers
 problem_headers.h: scripts/gen_mega_header.py problems/*.h

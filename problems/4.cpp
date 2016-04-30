@@ -56,6 +56,11 @@ unsigned long pow(unsigned long b, unsigned long p)
     return r;
 }
 
+bool is_palindrome(unsigned long n)
+{
+    return n == reverse(n);
+}
+
 unsigned long highest_palindrome(unsigned digits)
 {
     const unsigned long limit = pow(10, digits);
@@ -67,7 +72,7 @@ unsigned long highest_palindrome(unsigned digits)
         for (unsigned long j = i; j < limit; ++j)
         {
             const auto product = i * j;
-            if (product == reverse(product))
+            if (product > highest && is_palindrome(product))
             {
                 highest = max(highest, product);
             }

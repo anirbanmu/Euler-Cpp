@@ -51,7 +51,7 @@ unsigned long smallest_evenly_divisible(const tuple<unsigned long, unsigned long
 {
     const auto lower_bound = lower_bound_product(range);
     const auto upper_bound = upper_bound_product(range);
-    for (auto i = lower_bound - (lower_bound % get<1>(range)) + get<1>(range); i < upper_bound; i += get<1>(range))
+    for (auto i = lower_bound; i < upper_bound; i += lower_bound)
     {
         if (evenly_divisible(i, range))
         {

@@ -12,10 +12,10 @@ text += '#include "../problem_base.h"\n\n'
 
 text += '// Original prompt:\n\n'
 
-text += 'class Problem' + pnum + ' : public ProblemBase<' + pnum + '>\n'
+text += 'class Solver' + pnum + ' : public ProblemBase<' + pnum + '>\n'
 text += '{\n'
 text +=  '    public:\n'
-text +=  '        wstring execute_core()\n'
+text +=  '        string execute_core()\n'
 text +=  '        {\n'
 text +=  '        }\n'
 text +=  '};\n\n'

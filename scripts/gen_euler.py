@@ -20,7 +20,7 @@ footer_cpp = ('   sort(v.begin(), v.end(), [](const auto& a, const auto& b){ ret
               '   // Display all results and their runtimes\n\n'
               '   for (const auto& res : v)\n'
               '   {\n'
-              '       cout << "[ Problem " << get<0>(res) << " ] » " << setw(7) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;\n'
+              '       cout << "[ Problem " << get<0>(res) << " ] » " << setw(9) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;\n'
               '   }\n'
 
               '   return 0;\n'

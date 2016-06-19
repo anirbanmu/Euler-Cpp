@@ -11,13 +11,14 @@ using namespace std;int main(int, char**)
    v.emplace_back(Problem2().execute());
    v.emplace_back(Problem3().execute());
    v.emplace_back(Solver4().execute());
+   v.emplace_back(Solver5().execute());
    sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return get<0>(a) < get<0>(b); });
 
    // Display all results and their runtimes
 
    for (const auto& res : v)
    {
-       cout << "[ Problem " << get<0>(res) << " ] » " << setw(7) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;
+       cout << "[ Problem " << get<0>(res) << " ] » " << setw(9) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;
    }
    return 0;
 }

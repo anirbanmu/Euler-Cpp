@@ -7,6 +7,7 @@
 #include "problems/4.h"
 #include "problems/5.h"
 #include "problems/6.h"
+#include "problems/7.h"
 #include "problems/util.h"
 
 #endif

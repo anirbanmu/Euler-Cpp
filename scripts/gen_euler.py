@@ -9,7 +9,7 @@ header_cpp = ('#include <vector>\n'
               '#include <iomanip>\n'
               '#include "problem_headers.h"\n\n'
 
-              'using namespace std;'
+              'using namespace std;\n\n'
 
               'int main(int, char**)\n'
               '{\n'

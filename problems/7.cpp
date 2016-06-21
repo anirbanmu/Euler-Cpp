@@ -1,5 +1,6 @@
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 #include "7.h"
 
@@ -11,7 +12,8 @@ unsigned long generate_nth_prime(unsigned index)
 
     for (unsigned long c = 2; lesser_primes.size() != index; ++c)
     {
-        if (any_of(lesser_primes.begin(), lesser_primes.end(), [=](const auto& p){ return c % p == 0; }))
+        const auto primes_end = upper_bound(lesser_primes.begin(), lesser_primes.end(), static_cast<unsigned long>(sqrt(double(c))));
+        if (any_of(lesser_primes.begin(), primes_end, [=](const auto& p){ return c % p == 0; }))
         {
             continue;
         }

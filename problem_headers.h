@@ -8,6 +8,7 @@
 #include "problems/5.h"
 #include "problems/6.h"
 #include "problems/7.h"
+#include "problems/8.h"
 #include "problems/util.h"
 
 #endif

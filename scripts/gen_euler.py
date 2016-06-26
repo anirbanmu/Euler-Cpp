@@ -7,17 +7,36 @@ header_cpp = ('#include <vector>\n'
               '#include <iostream>\n'
               '#include <algorithm>\n'
               '#include <iomanip>\n'
+              '#include <thread>\n'
               '#include "problem_headers.h"\n\n'
 
               'using namespace std;\n\n'
 
+              'void execute_problems(vector<unique_ptr<ProblemInterface>>& problems, vector<tuple<unsigned, string, nanoseconds>>& results, size_t start, size_t end)\n'
+              '{\n'
+              '    if (start >= end) return;\n'
+              '    for (size_t i = start; i < end; ++i)\n'
+              '    {\n'
+              '        results[i] = problems[i]->execute();\n'
+              '    }\n'
+              '}\n\n'
+
               'int main(int, char**)\n'
               '{\n'
-              '    const auto before = high_resolution_clock::now();'
+              '    const auto before = high_resolution_clock::now();\n'
               '    vector<unique_ptr<ProblemInterface>> problems;\n')
 
-footer_cpp = ('    auto results = vector<tuple<unsigned, string, nanoseconds>>(problems.size(), tuple<unsigned, string, nanoseconds>());\n'
-              '    transform(problems.begin(), problems.end(), results.begin(), [](auto& p){ return p->execute(); });\n'
+footer_cpp = ('    auto results = vector<tuple<unsigned, string, nanoseconds>>(problems.size(), tuple<unsigned, string, nanoseconds>());\n\n'
+
+              '    vector<thread> threads;\n'
+              '    const unsigned num_threads = 4;\n'
+              '    const unsigned problems_per_thread = problems.size() / 4;\n'
+              '    for (unsigned i = 0; i < num_threads; ++i)\n'
+              '    {\n'
+              '        threads.emplace_back(execute_problems, ref(problems), ref(results), i * problems_per_thread, (i + 1 == num_threads) ? problems.size() : (i + 1) * problems_per_thread);\n'
+              '    }\n'
+              '    for_each(threads.begin(), threads.end(), [](auto& t){ t.join(); });\n\n'
+
               '    sort(results.begin(), results.end(), [](const auto& a, const auto& b){ return get<0>(a) < get<0>(b); });\n\n'
 
               '    // Display all results and their runtimes\n\n'

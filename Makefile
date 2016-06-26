@@ -1,5 +1,5 @@
 CXX := clang++
-CXXFLAGS := -O2 -Wall -Werror -std=c++14
+CXXFLAGS := -O2 -Wall -Werror -std=c++14 -pthread
 
 # Link
 euler: euler.o problems/*.o

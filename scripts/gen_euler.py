@@ -13,6 +13,7 @@ header_cpp = ('#include <vector>\n'
 
               'int main(int, char**)\n'
               '{\n'
+              '    const auto before = high_resolution_clock::now();'
               '    vector<unique_ptr<ProblemInterface>> problems;\n')
 
 footer_cpp = ('    auto results = vector<tuple<unsigned, string, nanoseconds>>(problems.size(), tuple<unsigned, string, nanoseconds>());\n'
@@ -23,8 +24,10 @@ footer_cpp = ('    auto results = vector<tuple<unsigned, string, nanoseconds>>(p
               '    for (const auto& res : results)\n'
               '    {\n'
               '        cout << "[ Problem " << get<0>(res) << " ] » " << setw(11) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;\n'
-              '    }\n'
+              '    }\n\n'
 
+              '    const auto after = high_resolution_clock::now();\n'
+              '    cout << endl << "Total execution time: " << duration_cast<nanoseconds>(after - before).count() << " ns" << endl;\n'
               '    return 0;\n'
               '}')
 

@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int, char**)
 {
-    vector<unique_ptr<ProblemInterface>> problems;
+    const auto before = high_resolution_clock::now();    vector<unique_ptr<ProblemInterface>> problems;
     problems.emplace_back(new Problem1);
     problems.emplace_back(new Problem2);
     problems.emplace_back(new Problem3);
@@ -28,5 +28,8 @@ int main(int, char**)
     {
         cout << "[ Problem " << get<0>(res) << " ] » " << setw(11) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;
     }
+
+    const auto after = high_resolution_clock::now();
+    cout << endl << "Total execution time: " << duration_cast<nanoseconds>(after - before).count() << " ns" << endl;
     return 0;
 }

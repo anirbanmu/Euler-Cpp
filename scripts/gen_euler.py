@@ -13,17 +13,19 @@ header_cpp = ('#include <vector>\n'
 
               'int main(int, char**)\n'
               '{\n'
-              '   vector<tuple<unsigned, string, nanoseconds>> v;\n')
+              '    vector<unique_ptr<ProblemInterface>> problems;\n')
 
-footer_cpp = ('   sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return get<0>(a) < get<0>(b); });\n\n'
+footer_cpp = ('    auto results = vector<tuple<unsigned, string, nanoseconds>>(problems.size(), tuple<unsigned, string, nanoseconds>());\n'
+              '    transform(problems.begin(), problems.end(), results.begin(), [](auto& p){ return p->execute(); });\n'
+              '    sort(results.begin(), results.end(), [](const auto& a, const auto& b){ return get<0>(a) < get<0>(b); });\n\n'
 
-              '   // Display all results and their runtimes\n\n'
-              '   for (const auto& res : v)\n'
-              '   {\n'
-              '       cout << "[ Problem " << get<0>(res) << " ] » " << setw(11) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;\n'
-              '   }\n'
+              '    // Display all results and their runtimes\n\n'
+              '    for (const auto& res : results)\n'
+              '    {\n'
+              '        cout << "[ Problem " << get<0>(res) << " ] » " << setw(11) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;\n'
+              '    }\n'
 
-              '   return 0;\n'
+              '    return 0;\n'
               '}')
 
 def get_solver_classes(header):
@@ -36,11 +38,11 @@ def aggregate_solver_classes(header_dir):
     classes_in_each = [get_solver_classes(f) for f in glob.glob(os.path.join(header_dir, '*.h'))]
     return [c for classes in classes_in_each for c in classes]
 
-def get_solver_cpp(solver_class):
-    return '   v.emplace_back(' + solver_class + '().execute());\n'
+def get_solver_creation_cpp(solver_class):
+    return '    problems.emplace_back(new ' + solver_class + ');\n'
 
-solvers_cpp = ''.join([get_solver_cpp(c) for c in sorted(aggregate_solver_classes(sys.argv[1]))])
+solvers_creation_cpp = ''.join([get_solver_creation_cpp(c) for c in sorted(aggregate_solver_classes(sys.argv[1]))])
 
 euler = sys.argv[2]
 with open(euler, 'w') as f:
-    f.write(header_cpp + solvers_cpp + footer_cpp)
+    f.write(header_cpp + solvers_creation_cpp + '\n' + footer_cpp)

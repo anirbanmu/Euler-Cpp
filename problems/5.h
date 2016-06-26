@@ -16,6 +16,9 @@ class Solver5 : public ProblemBase<5>
         {
             return std::to_string(smallest_evenly_divisible(std::tuple<unsigned long, unsigned long>(1, 20)));
         }
+        ~Solver5()
+        {
+        }
 };
 
 #endif

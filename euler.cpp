@@ -8,22 +8,25 @@ using namespace std;
 
 int main(int, char**)
 {
-   vector<tuple<unsigned, string, nanoseconds>> v;
-   v.emplace_back(Problem1().execute());
-   v.emplace_back(Problem2().execute());
-   v.emplace_back(Problem3().execute());
-   v.emplace_back(Solver4().execute());
-   v.emplace_back(Solver5().execute());
-   v.emplace_back(Solver6().execute());
-   v.emplace_back(Solver7().execute());
-   v.emplace_back(Solver8().execute());
-   sort(v.begin(), v.end(), [](const auto& a, const auto& b){ return get<0>(a) < get<0>(b); });
+    vector<unique_ptr<ProblemInterface>> problems;
+    problems.emplace_back(new Problem1);
+    problems.emplace_back(new Problem2);
+    problems.emplace_back(new Problem3);
+    problems.emplace_back(new Solver4);
+    problems.emplace_back(new Solver5);
+    problems.emplace_back(new Solver6);
+    problems.emplace_back(new Solver7);
+    problems.emplace_back(new Solver8);
 
-   // Display all results and their runtimes
+    auto results = vector<tuple<unsigned, string, nanoseconds>>(problems.size(), tuple<unsigned, string, nanoseconds>());
+    transform(problems.begin(), problems.end(), results.begin(), [](auto& p){ return p->execute(); });
+    sort(results.begin(), results.end(), [](const auto& a, const auto& b){ return get<0>(a) < get<0>(b); });
 
-   for (const auto& res : v)
-   {
-       cout << "[ Problem " << get<0>(res) << " ] » " << setw(11) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;
-   }
-   return 0;
+    // Display all results and their runtimes
+
+    for (const auto& res : results)
+    {
+        cout << "[ Problem " << get<0>(res) << " ] » " << setw(11) << get<1>(res) << " » " << setw(9) << get<2>(res).count() << " ns" << endl;
+    }
+    return 0;
 }

@@ -12,6 +12,9 @@ class Solver4 : public ProblemBase<4>
 {
     public:
         string execute_core();
+        ~Solver4()
+        {
+        }
 };
 
 #endif

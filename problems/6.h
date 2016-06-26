@@ -26,6 +26,10 @@ class Solver6 : public ProblemBase<6>
             return std::to_string(std::max(a, b) - std::min(a, b));
         }
 
+        ~Solver6()
+        {
+        }
+
     private:
         unsigned long sum_of_squares(std::tuple<unsigned long, unsigned long> range);
         unsigned long square_of_sum(std::tuple<unsigned long, unsigned long> range);

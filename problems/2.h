@@ -27,6 +27,10 @@ class Problem2 : public ProblemBase<2>
             }
             return std::to_string(acc);
         }
+
+        ~Problem2()
+        {
+        }
 };
 
 #endif

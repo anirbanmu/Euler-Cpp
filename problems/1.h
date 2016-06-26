@@ -26,6 +26,10 @@ class Problem1 : public ProblemBase<1>
         {
             return std::to_string(accumulate<false>(3, 1000) + accumulate<true>(5, 1000, 3 * 5));
         }
+
+        ~Problem1()
+        {
+        }
 };
 
 #endif

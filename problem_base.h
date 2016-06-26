@@ -12,7 +12,16 @@ using std::chrono::duration_cast;
 using std::chrono::nanoseconds;
 using std::chrono::high_resolution_clock;
 
-template<unsigned problem_number> class ProblemBase
+class ProblemInterface
+{
+    public:
+        virtual tuple<unsigned, string, nanoseconds> execute() = 0;
+        virtual ~ProblemInterface()
+        {
+        }
+};
+
+template<unsigned problem_number> class ProblemBase : public ProblemInterface
 {
     const unsigned problem_number_;
     public:
@@ -30,6 +39,10 @@ template<unsigned problem_number> class ProblemBase
         }
 
         virtual string execute_core() = 0;
+
+        virtual ~ProblemBase()
+        {
+        }
 };
 
 #endif

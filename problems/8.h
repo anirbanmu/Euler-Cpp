@@ -57,6 +57,10 @@ class Solver8 : public ProblemBase<8>
                                             "71636269561882670428252483600823257530420752963450");
             return std::to_string(find_max_product(number, 13));
         }
+
+        ~Solver8()
+        {
+        }
 };
 
 #endif

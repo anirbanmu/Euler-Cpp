@@ -17,6 +17,10 @@ class Problem3 : public ProblemBase<3>
         {
             return std::to_string(greatest_prime_factor(600851475143));
         }
+
+        ~Problem3()
+        {
+        }
 };
 
 #endif

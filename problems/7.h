@@ -16,6 +16,10 @@ class Solver7 : public ProblemBase<7>
         {
             return std::to_string(generate_nth_prime(10001));
         }
+
+        ~Solver7()
+        {
+        }
 };
 
 #endif

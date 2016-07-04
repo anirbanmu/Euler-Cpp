@@ -1,5 +1,6 @@
 #include <vector>
 #include <algorithm>
+#include <numeric>
 
 #include "5.h"
 #include "util.h"
